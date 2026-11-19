@@ -1,0 +1,21 @@
+[package]
+name = "cineplan-desktop"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+description = "Application de bureau CinePlan (Tauri 2)."
+
+[lib]
+name = "cineplan_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+cineplan-core.workspace = true
+cineplan-database.workspace = true
+serde.workspace = true
+tauri = { version = "2", features = [] }
+uuid.workspace = true

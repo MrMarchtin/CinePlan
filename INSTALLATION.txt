@@ -1,0 +1,12 @@
+INSTALLER CINEPLAN  (pour les membres de l'équipe)
+==================================================
+
+1. Double-cliquez sur le fichier « CinePlan_..._x64-setup.exe » que l'on vous a envoyé.
+2. Si Windows affiche « Windows a protégé votre ordinateur » :
+      cliquez sur « Informations complémentaires », puis sur « Exécuter quand même ».
+   (Ce message apparaît pour tout logiciel jeune et non signé ; il n'indique pas de problème.)
+3. Cliquez sur « Suivant » jusqu'à la fin. Aucun droit administrateur n'est nécessaire.
+4. CinePlan s'ouvre, et une icône est ajoutée au menu Démarrer.
+
+Vos projets sont enregistrés automatiquement sur votre ordinateur.
+Pour désinstaller : Paramètres Windows > Applications > CinePlan.

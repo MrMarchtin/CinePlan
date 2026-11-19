@@ -1,0 +1,59 @@
+:root {
+  --bg: #eef0ec;
+  --pane: #ffffff;
+  --ink: #16252b;
+  --mute: #5e6e73;
+  --line: #d5dad6;
+  --side: #13262d;
+  --side-ink: #c9d6d3;
+  --acc: #e0a100;
+  --bad: #b3261e;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #0f1a1e;
+    --pane: #17262c;
+    --ink: #e6ecea;
+    --mute: #93a5a8;
+    --line: #2a3c43;
+    --side: #0a1317;
+    --bad: #ff8a80;
+  }
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+
+h2 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+.lead { color: var(--mute); margin: 0 0 20px; }
+.pane { background: var(--pane); border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.pane h3 { margin: 0 0 10px; font-size: 16px; }
+
+input, select, textarea, button {
+  font: inherit; color: var(--ink); background: var(--pane);
+  border: 1px solid var(--line); border-radius: 5px; padding: 6px 10px;
+}
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible {
+  outline: 2px solid var(--acc); outline-offset: 2px;
+}
+button { cursor: pointer; }
+button.primary { background: var(--acc); border-color: var(--acc); color: #16252b; font-weight: 700; }
+button.link { border: 0; background: none; color: var(--mute); padding: 4px 8px; }
+button.link:hover { color: var(--ink); }
+button.danger:hover { color: var(--bad); }
+
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.error { color: var(--bad); font-weight: 600; margin: 0 0 12px; }
+.empty { color: var(--mute); }
+.badge { display: inline-block; padding: 1px 10px; border-radius: 10px; background: var(--line); font-size: 12px; }
+
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; color: var(--mute); font-weight: 700; padding: 6px 8px; border-bottom: 2px solid var(--line); }
+td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }

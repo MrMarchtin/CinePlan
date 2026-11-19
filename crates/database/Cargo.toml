@@ -1,0 +1,17 @@
+[package]
+name = "cineplan-database"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+description = "Accès SQLite (SQLx) et migrations de CinePlan."
+
+[dependencies]
+async-trait.workspace = true
+chrono.workspace = true
+cineplan-core.workspace = true
+sqlx.workspace = true
+uuid.workspace = true
+
+[dev-dependencies]
+tokio.workspace = true
