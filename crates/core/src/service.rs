@@ -2,9 +2,16 @@ use crate::error::CoreResult;
 use crate::project::{NewProject, Project, ProjectUpdate};
 use crate::repository::{ProjectRepository, SceneRepository};
 use crate::scene::{NewScene, Scene, SceneUpdate};
-use chrono::Utc;
+use chrono::{DateTime, Utc};
 use std::sync::Arc;
 use uuid::Uuid;
+
+/// Heure courante tronquée à la milliseconde : c'est la précision stockée en base,
+/// ce qui garantit qu'un enregistrement relu est strictement identique à l'original.
+fn now() -> DateTime<Utc> {
+    let t = Utc::now();
+    DateTime::from_timestamp_millis(t.timestamp_millis()).unwrap_or(t)
+}
 
 /// Cas d'usage « projets » : valide, puis délègue au stockage.
 #[derive(Clone)]
@@ -26,20 +33,20 @@ impl ProjectService {
     }
 
     pub async fn create(&self, input: NewProject) -> CoreResult<Project> {
-        let project = Project::create(input, Utc::now())?;
+        let project = Project::create(input, now())?;
         self.repo.insert(&project).await?;
         Ok(project)
     }
 
     pub async fn update(&self, input: ProjectUpdate) -> CoreResult<Project> {
         let mut project = self.repo.get(input.id).await?;
-        project.apply(input, Utc::now())?;
+        project.apply(input, now())?;
         self.repo.update(&project).await?;
         Ok(project)
     }
 
     pub async fn delete(&self, id: Uuid) -> CoreResult<()> {
-        self.repo.soft_delete(id, Utc::now()).await
+        self.repo.soft_delete(id, now()).await
     }
 }
 
@@ -59,14 +66,14 @@ impl SceneService {
     }
 
     pub async fn create(&self, input: NewScene) -> CoreResult<Scene> {
-        let scene = Scene::create(input, Utc::now())?;
+        let scene = Scene::create(input, now())?;
         self.repo.insert(&scene).await?;
         Ok(scene)
     }
 
     pub async fn update(&self, input: SceneUpdate) -> CoreResult<Scene> {
         let mut scene = self.repo.get(input.id).await?;
-        scene.apply(input, Utc::now())?;
+        scene.apply(input, now())?;
         self.repo.update(&scene).await?;
         Ok(scene)
     }
