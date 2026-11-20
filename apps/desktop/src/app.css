@@ -57,3 +57,9 @@ button.danger:hover { color: var(--bad); }
 table { width: 100%; border-collapse: collapse; }
 th { text-align: left; color: var(--mute); font-weight: 700; padding: 6px 8px; border-bottom: 2px solid var(--line); }
 td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+
+.badge.bad { background: var(--bad); color: #fff; }
+.chip-x { border: 0; background: none; color: inherit; padding: 0 0 0 6px; cursor: pointer; }
+fieldset { padding: 8px 12px; }
+legend { color: var(--mute); font-size: 13px; padding: 0 6px; }
+button:disabled { opacity: 0.5; cursor: default; }

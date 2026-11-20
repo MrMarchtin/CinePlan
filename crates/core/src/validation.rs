@@ -41,3 +41,14 @@ pub fn date_range(start: Option<NaiveDate>, end: Option<NaiveDate>) -> CoreResul
         _ => Ok(()),
     }
 }
+
+/// Horaires d'une journée, en minutes depuis minuit : 00h00 à 23h59, fin après début.
+pub fn minutes_range(start: u16, end: u16) -> CoreResult<()> {
+    if start >= 1440 || end >= 1440 {
+        return invalid("Les horaires doivent être compris entre 00h00 et 23h59.".into());
+    }
+    if end <= start {
+        return invalid("L'heure de fin doit être postérieure à l'heure de début.".into());
+    }
+    Ok(())
+}

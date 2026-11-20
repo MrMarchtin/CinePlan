@@ -8,7 +8,7 @@ use uuid::Uuid;
 
 /// Heure courante tronquée à la milliseconde : c'est la précision stockée en base,
 /// ce qui garantit qu'un enregistrement relu est strictement identique à l'original.
-fn now() -> DateTime<Utc> {
+pub(crate) fn now() -> DateTime<Utc> {
     let t = Utc::now();
     DateTime::from_timestamp_millis(t.timestamp_millis()).unwrap_or(t)
 }

@@ -18,4 +18,5 @@ cineplan-core.workspace = true
 cineplan-database.workspace = true
 serde.workspace = true
 tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
 uuid.workspace = true

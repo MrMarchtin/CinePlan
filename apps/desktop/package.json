@@ -1,7 +1,7 @@
 {
   "name": "cineplan-desktop",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,7 +11,9 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@tauri-apps/api": "^2"
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-dialog": "^2",
+    "pdfjs-dist": "^4.10.38"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5",

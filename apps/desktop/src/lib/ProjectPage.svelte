@@ -79,6 +79,10 @@
     }
   }
 
+  function onStatusChange(event: Event) {
+    void changeStatus((event.currentTarget as HTMLSelectElement).value as ProjectStatus);
+  }
+
   async function changeStatus(status: ProjectStatus) {
     error = '';
     try {
@@ -114,7 +118,7 @@
   <select
     id="status"
     value={project.status}
-    onchange={(e) => changeStatus(e.currentTarget.value as ProjectStatus)}
+    onchange={onStatusChange}
   >
     {#each Object.entries(STATUS_LABELS) as [value, label]}
       <option {value}>{label}</option>

@@ -12,7 +12,7 @@ use uuid::Uuid;
 /// Base SQLite locale. Se clone à bas coût (le pool est partagé).
 #[derive(Clone)]
 pub struct SqliteStore {
-    pool: SqlitePool,
+    pub(crate) pool: SqlitePool,
 }
 
 impl SqliteStore {
@@ -56,15 +56,15 @@ impl SqliteStore {
 
 // ---------- conversions et erreurs ----------
 
-fn storage(e: impl std::fmt::Display) -> CoreError {
+pub(crate) fn storage(e: impl std::fmt::Display) -> CoreError {
     CoreError::Storage(e.to_string())
 }
 
-fn map_sqlx(e: sqlx::Error) -> CoreError {
+pub(crate) fn map_sqlx(e: sqlx::Error) -> CoreError {
     if let sqlx::Error::Database(db) = &e {
         if db.is_unique_violation() {
             return CoreError::Validation(
-                "Ce numéro de scène est déjà utilisé dans ce projet.".into(),
+                "Cette valeur est déjà utilisée (numéro de scène ou date de tournage).".into(),
             );
         }
         if db.is_foreign_key_violation() {
@@ -74,34 +74,34 @@ fn map_sqlx(e: sqlx::Error) -> CoreError {
     storage(e)
 }
 
-fn ts(d: &DateTime<Utc>) -> String {
+pub(crate) fn ts(d: &DateTime<Utc>) -> String {
     d.to_rfc3339_opts(SecondsFormat::Millis, true)
 }
 
-fn get<'r, T>(row: &'r SqliteRow, col: &str) -> CoreResult<T>
+pub(crate) fn get<'r, T>(row: &'r SqliteRow, col: &str) -> CoreResult<T>
 where
     T: sqlx::Decode<'r, sqlx::Sqlite> + sqlx::Type<sqlx::Sqlite>,
 {
     row.try_get(col).map_err(storage)
 }
 
-fn get_uuid(row: &SqliteRow, col: &str) -> CoreResult<Uuid> {
+pub(crate) fn get_uuid(row: &SqliteRow, col: &str) -> CoreResult<Uuid> {
     Uuid::parse_str(&get::<String>(row, col)?).map_err(storage)
 }
 
-fn get_time(row: &SqliteRow, col: &str) -> CoreResult<DateTime<Utc>> {
+pub(crate) fn get_time(row: &SqliteRow, col: &str) -> CoreResult<DateTime<Utc>> {
     DateTime::parse_from_rfc3339(&get::<String>(row, col)?)
         .map(|d| d.with_timezone(&Utc))
         .map_err(storage)
 }
 
-fn get_date(row: &SqliteRow, col: &str) -> CoreResult<Option<NaiveDate>> {
+pub(crate) fn get_date(row: &SqliteRow, col: &str) -> CoreResult<Option<NaiveDate>> {
     get::<Option<String>>(row, col)?
         .map(|s| NaiveDate::parse_from_str(&s, "%Y-%m-%d").map_err(storage))
         .transpose()
 }
 
-fn get_minutes(row: &SqliteRow, col: &str) -> CoreResult<Option<u32>> {
+pub(crate) fn get_minutes(row: &SqliteRow, col: &str) -> CoreResult<Option<u32>> {
     Ok(get::<Option<i64>>(row, col)?.map(|v| v as u32))
 }
 
